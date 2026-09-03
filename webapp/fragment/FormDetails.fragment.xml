@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:f="sap.ui.layout.form"
+    class="sapUiSizeCompact">
+    <f:SimpleForm editable="true" layout="ColumnLayout" singleContainerFullSize="true">
+        <Label text="{i18n>natureOfSecurity}"></Label>
+        <Input value="{viewModel>/formDetails/NatureOfSecurity}" editable="false"></Input>
+        <Label text="{i18n>dateOfReceipt}"></Label>
+        <DatePicker value="{viewModel>/formDetails/ConfirmedOn}" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="false" />
+        <Label text="{i18n>natureOfTransaction}"></Label>
+        <Input value="{path:'viewModel>/formDetails/NatureOfNewTransaction', formatter:'.formatter.formatNatureOfTransaction'}" editable="false" />
+        <Label text="{i18n>estimatedNumberOfSecurities}"></Label>
+        <Input value="{viewModel>/formDetails/EstimatedNoOfSecurities}" editable="false" type="Number" />
+        <Label text="{i18n>estimatedConsiderationValue}"></Label>
+        <Input value="{path:'viewModel>/formDetails/EstimatedConsiderationValue',formatter:'.formatter.formatAmountToINR'}" editable="false" />
+        <Label text="{i18n>nameOfTheImmediateRelative}"></Label>
+        <Input value="{viewModel>/formDetails/ImmediateRelativeName}" editable="false" />
+        <Label text="{i18n>dateOfCommunication}"></Label>
+        <DatePicker value="{= ${viewModel>/formDetails/Status} === 'Approved' ? ${viewModel>/formDetails/ApprovedOn} : ${viewModel>/formDetails/RejectedOn} }" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="false" change="onDateChange" />
+        <Label text="{i18n>reasonsForNonClearance}"></Label>
+        <Input value="{viewModel>/formDetails/ReasonsNonClearance}" editable="false" />
+        <!-- <Label text="{i18n>dateOfPlacement}"></Label>
+        <DatePicker value="{viewModel>/formDetails/DatePlacementCOD}" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="true" required="true" valueState="{viewModel>/valueState/DatePlacementCOD}" valueStateText="{viewModel>/valueStateText/DatePlacementCOD}" change="onDateChange" />
+        <Label text="{i18n>noOfSecuritiesActuallyTraded}"></Label>
+        <Input value="{viewModel>/formDetails/ActualNoOfSecurities}" editable="true" type="Number" required="true" valueState="{viewModel>/valueState/ActualNoOfSecurities}" valueStateText="{viewModel>/valueStateText/ActualNoOfSecurities}" change="onMandatoryChange" /> -->
+        <Label text="{i18n>remarks}"></Label>
+        <TextArea value="{viewModel>/formDetails/Form5Remarks}" editable="true" valueState="{viewModel>/valueState/Form5Remarks}" valueStateText="{viewModel>/valueStateText/Form5Remarks}" rows="3" change="onMandatoryChange" />
+    </f:SimpleForm>
+</core:FragmentDefinition>
