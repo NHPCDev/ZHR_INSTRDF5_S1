@@ -72,7 +72,7 @@ sap.ui.define([
                             oViewModel.setProperty("/formDetails/PersonnelSubArea", oResp.results[0].WERKS);
                             oViewModel.setProperty("/formDetails/PersonnelSubAreaText", oResp.results[0].PLANT);
                             oViewModel.setProperty("/formDetails/EmployeeDepartment", `${oResp.results[0].DEP_CODE} - ${oResp.results[0].DEP}`);
-                            oViewModel.setProperty("/formDetails/PositionText", oResp.results[0].DESIG);
+                            // oViewModel.setProperty("/formDetails/Designation", oResp.results[0].DESIG);
                             oViewModel.setProperty("/formDetails/USRID", oResp.results[0].USRID);
                             oViewModel.setProperty("/formDetails/MOBILE", oResp.results[0].MOBILE);
                             oViewModel.setProperty("/formDetails/EMAIL", oResp.results[0].EMAIL);
