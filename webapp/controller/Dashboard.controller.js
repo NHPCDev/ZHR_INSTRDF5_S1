@@ -11,8 +11,9 @@ sap.ui.define([
     "sap/ui/table/Column",
     "sap/m/Label",
     "sap/m/Column",
-    "sap/m/Text"
-], (BaseController, formatter, messenger, Filter, FilterOperator, Spreadsheet, Fragment, JSONModel, SearchField, UIColumn, Label, MColumn, Text) => {
+    "sap/m/Text",
+    "sap/ui/core/BusyIndicator",
+], (BaseController, formatter, messenger, Filter, FilterOperator, Spreadsheet, Fragment, JSONModel, SearchField, UIColumn, Label, MColumn, Text, BusyIndicator) => {
     "use strict";
 
     return BaseController.extend("com.nhpc.zhrinstrdf5s1.controller.Dashboard", {
@@ -96,30 +97,58 @@ sap.ui.define([
             });
         },
         onDownload: function () {
-            var oTable = this.byId("idDashboardTable");
-            var oBinding = oTable.getBinding("rows");
-            var aData = oBinding.getContexts().map(function (oContext) {
-                var oData = Object.assign({}, oContext.getObject());
-                oData.ConfirmedOn = formatter.formatDate(oData.ConfirmedOn);
-                oData.NatureOfNewTransaction = formatter.formatNatureOfTransaction(oData.NatureOfNewTransaction);
-                oData.DateOfCommunication = formatter.formatStatusDateForStatus(oData.Status, oData.ApprovedOn, oData.RejectedOn);
-                oData.CreatedOn = formatter.formatDate(oData.CreatedOn);
-                return oData;
+            var oModel = this.getModel();
+            var oResourceBundle = this.getResourceBundle();
+            var aFilters = [
+                new sap.ui.model.Filter(
+                    "ApprovalFlag",
+                    sap.ui.model.FilterOperator.EQ,
+                    "5"
+                )
+            ];
+            BusyIndicator.show(0);
+            oModel.read("/PreClearSet", {
+                filters: aFilters,
+                success: function (oData) {
+                    var aData = oData.results.map(function (oData) {
+                        var oRow = Object.assign({}, oData);
+                        oRow.ConfirmedOn =
+                            formatter.formatDate(oRow.ConfirmedOn);
+                        oRow.NatureOfNewTransaction =
+                            formatter.formatNatureOfTransaction(
+                                oRow.NatureOfNewTransaction
+                            );
+                        oRow.DateOfCommunication =
+                            formatter.formatStatusDateForStatus(
+                                oRow.Status,
+                                oRow.ApprovedOn,
+                                oRow.RejectedOn
+                            );
+                        oRow.CreatedOn =
+                            formatter.formatDate(oRow.CreatedOn);
+                        return oRow;
+                    });
+                    var aCols = this.createColumnConfig();
+                    var oSettings = {
+                        workbook: {
+                            columns: aCols
+                        },
+                        dataSource: aData,
+                        fileType: "xlsx",
+                        fileName: oResourceBundle.getText("title")
+                    };
+                    var oSheet = new Spreadsheet(oSettings);
+                    oSheet.build()
+                        .finally(function () {
+                            oSheet.destroy();
+                            BusyIndicator.hide();
+                        });
+                }.bind(this),
+                error: function () {
+                    BusyIndicator.hide();
+                    messenger.error(oResourceBundle.getText("failedToDownloadData"));
+                }
             });
-            var aCols = this.createColumnConfig();
-            var oSettings = {
-                workbook: {
-                    columns: aCols
-                },
-                dataSource: aData,
-                fileType: "xlsx",
-                fileName: this.getResourceBundle().getText("title")
-            };
-            var oSheet = new Spreadsheet(oSettings);
-            oSheet.build()
-                .finally(function () {
-                    oSheet.destroy();
-                });
         },
         createColumnConfig: function () {
             var aCols = [];
@@ -166,10 +195,6 @@ sap.ui.define([
             aCols.push({
                 label: this.getResourceBundle().getText("reasonsForNonClearance"),
                 property: "ReasonsNonClearance"
-            });
-            aCols.push({
-                label: this.getResourceBundle().getText("remarks"),
-                property: "Form5Remarks"
             });
             aCols.push({
                 label: this.getResourceBundle().getText("createdOn"),

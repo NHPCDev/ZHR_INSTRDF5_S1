@@ -24,7 +24,7 @@
                 <ColumnListItem >
                     <cells>
                         <Text text="{path:'viewModel>TransactionDate', formatter:'.formatter.formatDate'}"></Text>
-                        <Text text="{viewModel>NoOfSecurities}"></Text>
+                        <Text text="{path:'viewModel>NoOfSecurities', formatter:'.formatter.formatNumbers'}"></Text>
                         <Text text="{path:'viewModel>Price', formatter:'.formatter.formatAmountToINR'}"></Text>
                     </cells>
                 </ColumnListItem>

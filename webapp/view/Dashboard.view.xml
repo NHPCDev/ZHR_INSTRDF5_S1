@@ -96,7 +96,7 @@
                             }
                     }"
                     selectionMode="Single"
-                    threshold="100"
+                    threshold="20"
                     rowSelectionChange="onListItemPress"
                     width="100%"
                     fixedColumnCount="2"
