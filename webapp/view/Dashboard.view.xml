@@ -243,16 +243,7 @@
                                 wrapping="true"
                             />
                             <table:template>
-                                <Text
-    text="{
-        parts: [
-            { path: 'Status' },
-            { path: 'ApprovedOn' },
-            { path: 'RejectedOn' }
-        ],
-        formatter: '.formatter.formatStatusDateForStatus'
-    }"
-/>
+                                <Text text="{path:'Compclearancedate',formatter:'.formatter.formatDate'}" />
                             </table:template>
                         </table:Column>
                         <table:Column

@@ -17,7 +17,7 @@
         <Label text="{i18n>nameOfTheImmediateRelative}"></Label>
         <Input value="{viewModel>/formDetails/ImmediateRelativeName}" editable="false" />
         <Label text="{i18n>dateOfCommunication}"></Label>
-        <DatePicker value="{= ${viewModel>/formDetails/Status} === 'Approved' ? ${viewModel>/formDetails/ApprovedOn} : ${viewModel>/formDetails/RejectedOn} }" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="false" change="onDateChange" />
+        <DatePicker value="{viewModel>/formDetails/Compclearancedate}" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="false" change="onDateChange" />
         <Label text="{i18n>reasonsForNonClearance}"></Label>
         <Input value="{viewModel>/formDetails/ReasonsNonClearance}" editable="false" />
         <!-- <Label text="{i18n>dateOfPlacement}"></Label>

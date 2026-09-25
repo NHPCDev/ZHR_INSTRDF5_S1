@@ -30,6 +30,7 @@ sap.ui.define([
                 await this.resetValueStates();
                 await this.setFormDetails();
                 await this.getDefaultEmployeeDetails();
+                await this.readAttachmentsData();
             } catch (error) {
                 messenger.error(error, () => {
                     this.getRouter().navTo("RouteDashboard", {}, {}, true);
@@ -131,7 +132,8 @@ sap.ui.define([
                     oViewModel.setProperty("/formDetails/DateOfPurchaseAllotment", normalizeValue(oData.DateOfPurchaseAllotment));
                     oViewModel.setProperty("/formDetails/ActualNoOfSecurities", normalizeValue(oData.ActualNoOfSecurities));
                     oViewModel.setProperty("/formDetails/EstimatedNoOfSecurities", normalizeValue(oData.EstimatedNoOfSecurities));
-                    oViewModel.setProperty("/formDetails/NatureOfSecurity", oData.Natureofsecurity)
+                    oViewModel.setProperty("/formDetails/NatureOfSecurity", oData.Natureofsecurity);
+                    oViewModel.setProperty("/formDetails/Compclearancedate", oData.Compclearancedate);
                 }
                 if (oPreApprovedResp?.results?.length) {
                     if (oPreApprovedResp.results[0].Status?.toUpperCase() !== "APPROVED") {
@@ -192,6 +194,8 @@ sap.ui.define([
                 sTitle = oResourceBundle.getText("CONFIRM_TITLE"),
                 sText = oResourceBundle.getText("CONFIRM_TEXT_FINAL_REQUEST"),
                 bProceed = this.validateSubmitRequestDetails();
+            let oViewModel = this.getModel("viewModel");
+            let that = this;
             var oModel = this.getModel();
             if (bProceed) {
                 messenger.confirm(sTitle, sText, "Confirm", null, function () {
@@ -200,6 +204,7 @@ sap.ui.define([
                     oModel.create("/PreClearSet", oPayload, {
                         success: function (oResp) {
                             BusyIndicator.hide();
+                            that.fileUpload(oViewModel.getProperty("/attachmentList"),"Save");
                             messenger.success(oResourceBundle.getText("manageWaiverFinalSuccessMsg", oResp.ApplicationNo), () => {
                                 this.getRouter().navTo("RouteDashboard", {}, {}, true);
                             });

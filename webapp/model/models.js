@@ -37,7 +37,8 @@ function (JSONModel, Device) {
                     DatePlacementCOD: "",
                     ActualNoOfSecurities: "",
                     Form5Remarks: ""
-                }
+                },
+                attachmentData:[]
             });
             oViewModel.setDefaultBindingMode("TwoWay");
             return oViewModel;
