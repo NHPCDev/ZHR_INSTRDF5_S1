@@ -670,6 +670,7 @@ sap.ui.define([
                         this.oItemsProcessor.splice(index, 1);
                         data.splice(index, 1);
                         oViewModel.setProperty("/attachmentList", data);
+                        oViewModel.setProperty("/canEdit", data.length === 0);
                         oViewModel.refresh(true);
                     }
 

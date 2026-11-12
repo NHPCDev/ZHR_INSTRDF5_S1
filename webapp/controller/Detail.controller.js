@@ -124,7 +124,7 @@ sap.ui.define([
                         const n = Number(value);
                         return n === 0 ? "" : String(n);
                     }
-                    if (oData.Status === "Rejected") {
+                    if (oData.Status === "05") {
                         that._getHistoryWithRemarksData(oData.Pernr);
                     }
                     oViewModel.setProperty("/formDetails/DatePlacementCOD", normalizeValue(oData.DatePlacementCOD));
@@ -136,7 +136,7 @@ sap.ui.define([
                     oViewModel.setProperty("/formDetails/Compclearancedate", oData.Compclearancedate);
                 }
                 if (oPreApprovedResp?.results?.length) {
-                    if (oPreApprovedResp.results[0].Status?.toUpperCase() !== "APPROVED") {
+                    if (oPreApprovedResp.results[0].Status?.toUpperCase() !== "03") {
                         oViewModel.setProperty("/tableData", []);
                         return;
                     }
@@ -178,7 +178,7 @@ sap.ui.define([
             oModel.read("/RemarkHistorySet", {
                 filters: aFilters,
                 success: function (oData) {
-                    let sRejected = oData.results.find(i => i.Status === "Rejected")?.Remark;
+                    let sRejected = oData.results.find(i => i.Status === "05")?.Remark;
                     if(sRejected){
                         oVM.setProperty("/formDetails/ReasonsNonClearance",sRejected);
                     }

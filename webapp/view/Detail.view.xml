@@ -38,7 +38,7 @@
                                             />
                                             <ObjectStatus
                                                 title="{i18n>status}"
-                                                text="{viewModel>/formDetails/Status}"
+                                                text="{viewModel>/formDetails/StatusText}"
                                                 class="sapMObjectStatusMedium statusBoldText"
                                                 state="{path:'viewModel>/formDetails/Status',formatter:'.formatter.formatStatusState'}"
                                             />
@@ -63,7 +63,7 @@
                                             />
                                             <ObjectStatus
                                                 title="{i18n>status}"
-                                                text="{viewModel>/formDetails/Status}"
+                                                text="{viewModel>/formDetails/StatusText}"
                                                 class="sapMObjectStatusMedium statusBoldText"
                                                 state="{path:'viewModel>/formDetails/Status',formatter:'.formatter.formatStatusState'}"
                                             />

@@ -12,14 +12,14 @@ sap.ui.define(["sap/ui/core/IconPool",
         },
         formatStatusState: function (status) {
             if (status) {
-                if (status === "02" || status === "CONFIRM" || status === "Submitted" || status === "Approved") {
+                if (status === "03") {
                     return "Success";
-                } else if (status === "Rejected"){
-                    return "Error"
-                } else if (status === "New") {
+                } else if (status === "02" || status === "New") {
                     return "Information";
-                } else if (status === "01" || status === "Draft") {
+                } else if (status === "01") {
                     return "Warning";
+                } else if (status === "04") {
+                    return "Error"
                 } else {
                     return "Warning"
                 }
